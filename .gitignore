@@ -1,0 +1,49 @@
+# Build directories
+build/
+cmake-build-*/
+.cache
+
+# Original DLL used as template (do not commit)
+RvROLClient_orig.dll
+
+# Logs (can grow huge)
+*.log
+rvpn_inject.log
+
+# Compiled binaries and libraries
+*.exe
+*.dll
+*.a
+*.so
+*.o
+*.obj
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+.DS_Store
+Thumbs.db
+
+# Wine prefixes / temp
+.wine/
+*.reg
+
+# Linux TAP bridge binary
+linux_tap
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
