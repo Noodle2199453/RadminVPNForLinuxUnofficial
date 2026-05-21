@@ -1,4 +1,5 @@
 # Radmin VPN TAP Emulator
+❌ Packet duplication and RX/TX instability – Radmin VPN TAP Emulator experimental.
 
 This project emulates the Radmin VPN kernel driver (`\\.\RVPNNETMP`) and bridges its Ethernet traffic to a userspace TAP device (e.g., a Linux TAP interface) via a custom UDP protocol. It allows Radmin VPN to run under Wine (Linux).
 
