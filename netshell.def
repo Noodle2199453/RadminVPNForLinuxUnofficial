@@ -1,0 +1,16 @@
+LIBRARY netshell.dll
+EXPORTS
+  DllCanUnloadNow         = Fake_DllCanUnloadNow         @1
+  DllGetClassObject       = Fake_DllGetClassObject       @2
+  DllRegisterServer       = Fake_DllRegisterServer       @3
+  DllUnregisterServer     = Fake_DllUnregisterServer     @4
+  HrCreateDesktopIcon     = Fake_HrCreateDesktopIcon     @5
+  HrGetIconFromMediaType  = Fake_HrGetIconFromMediaType  @6
+  HrGetIconFromMediaTypeEx= Fake_HrGetIconFromMediaTypeEx @7
+  HrLaunchConnection       = Fake_HrLaunchConnection       @8
+  HrLaunchConnectionEx     = Fake_HrLaunchConnectionEx     @9
+  HrLaunchPropertiesSheet  = Fake_HrLaunchPropertiesSheet  @10
+  HrRenameConnection       = Fake_HrRenameConnection       @11
+  NcFreeNetconProperties   = Fake_NcFreeNetconProperties   @12
+  NcIsValidConnectionName  = Fake_NcIsValidConnectionName  @13
+  StartNCW                 = Fake_StartNCW                 @14
