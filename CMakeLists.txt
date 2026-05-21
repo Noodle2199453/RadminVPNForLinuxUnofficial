@@ -26,7 +26,8 @@ set(ORIG_DLL   "${CMAKE_CURRENT_SOURCE_DIR}/RvROLClient_orig.dll")
 
 # If Windows components are requested, require original DLL
 if(BUILD_WINDOWS_COMPONENTS AND NOT EXISTS "${ORIG_DLL}")
-    message(FATAL_ERROR "RvROLClient_orig.dll not found! This file is required to build RvROLClient.dll (BUILD_WINDOWS_COMPONENTS=ON).")
+    message(WARNING "RvROLClient_orig.dll not found! This file is required to build RvROLClient.dll (BUILD_WINDOWS_COMPONENTS=ON). Disabling BUILD_WINDOWS_COMPONENTS so configuration can continue.")
+    set(BUILD_WINDOWS_COMPONENTS OFF CACHE BOOL "Build RvROLClient.dll (Windows proxy)" FORCE)
 endif()
 
 if(BUILD_WINDOWS_COMPONENTS AND Python3_FOUND AND EXISTS "${ORIG_DLL}")
@@ -44,7 +45,8 @@ if(BUILD_WINDOWS_COMPONENTS AND Python3_FOUND AND EXISTS "${ORIG_DLL}")
         "${CMAKE_CURRENT_BINARY_DIR}/rvrolclient.def"
     )
 elseif(BUILD_WINDOWS_COMPONENTS)
-    message(FATAL_ERROR "Python3 or original DLL missing – cannot generate RvROLClient proxy stubs.")
+    message(WARNING "Python3 or original DLL missing – cannot generate RvROLClient proxy stubs. Disabling BUILD_WINDOWS_COMPONENTS so configuration can continue.")
+    set(BUILD_WINDOWS_COMPONENTS OFF CACHE BOOL "Build RvROLClient.dll (Windows proxy)" FORCE)
 endif()
 
 set(EMULATOR_CORE_SOURCES
