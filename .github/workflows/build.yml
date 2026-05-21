@@ -1,0 +1,52 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'           # triggers only on version tags, e.g. v1.0.0
+  workflow_dispatch:   # allows manual trigger from the Actions tab
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake gcc-mingw-w64-i686 python3
+
+      - name: Configure with CMake
+        run: |
+          mkdir build
+          cd build
+          cmake -DBUILD_WINDOWS_COMPONENTS=ON -DBUILD_WINE_COMPONENTS=ON \
+                -DCMAKE_BUILD_TYPE=Release ..
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Prepare release artifacts
+        run: |
+          mkdir release
+          # Copy all built .dll and .exe files
+          cp build/*.dll build/*.exe release/ 2>/dev/null || true
+          # Copy the Linux TAP bridge if built
+          cp build/linux_tap release/ 2>/dev/null || true
+          # Optional: include a readme or config template
+          cp radmin.conf release/ 2>/dev/null || true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*
+          body: |
+            Automated build from tag ${{ github.ref_name }}.
+            - hooklib.dll, inject.exe, start_rvpn.exe (Wine injection)
+            - RvROLClient.dll (Windows proxy)
+            - linux_tap (Linux bridge)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
